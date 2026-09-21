@@ -1,1 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Para Luci 🌻</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: Georgia, "Times New Roman", serif;
+        background:
+            radial-gradient(circle at 50% 20%, #443b20 0%, #18150d 45%, #080807 100%);
+        color: #fff8dc;
+    }
+
+    .contenedor {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .intro {
+        animation: aparecer 2s ease;
+    }
+
+    .pequeno {
+        font-size: 1rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #e8c85c;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: clamp(3rem, 12vw, 7rem);
+        color: #ffd83d;
+        text-shadow:
+            0 0 10px rgba(255, 216, 61, .4),
+            0 0 35px rgba(255, 193, 7, .25);
+        margin-bottom: 10px;
+    }
+
+    .subtitulo {
+        font-size: clamp(1.2rem, 4vw, 1.7rem);
+        color: #fff4bd;
+        max-width: 650px;
+        line-height: 1.6;
+        margin: auto;
+    }
+
+    .flores {
+        position: relative;
+        height: 190px;
+        width: 300px;
+        margin: 30px auto 10px;
+    }
+
+    .flor {
+        position: absolute;
+        bottom: 0;
+        width: 5px;
+        height: 130px;
+        background: linear-gradient(#4d7b32, #29491f);
+        border-radius: 10px;
+        transform-origin: bottom;
+        animation: crecer 2s ease forwards;
+    }
+
+    .flor::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background:
+            radial-gradient(circle, #5b3a0b 0 20%, transparent 21%),
+            conic-gradient(
+                #ffd92f 0deg 20deg,
+                transparent 20deg 40deg,
+                #ffd92f 40deg 60deg,
+                transparent 60deg 80deg,
+                #ffd92f 80deg 100deg,
+                transparent 100deg 120deg,
+                #ffd92f 120deg 140deg,
+                transparent 140deg 160deg,
+                #ffd92f 160deg 180deg,
+                transparent 180deg 200deg,
+                #ffd92f 200deg 220deg,
+                transparent 220deg 240deg,
+                #ffd92f 240deg 260deg,
+                transparent 260deg 280deg,
+                #ffd92f 280deg 300deg,
+                transparent 300deg 320deg,
+                #ffd92f 320deg 340deg,
+                transparent 340deg 360deg
+            );
+            filter: drop-shadow(0 0 8px rgba(255, 213, 51, .4));
+    }
+
+    .flor:nth-child(1) {
+        left: 55px;
+        height: 110px;
+        transform: rotate(-10deg);
+        animation-delay: .3s;
+    }
+
+    .flor:nth-child(2) {
+        left: 145px;
+        height: 150px;
+        transform: rotate(3deg);
+        animation-delay: .7s;
+    }
+
+    .flor:nth-child(3) {
+        left: 220px;
+        height: 120px;
+        transform: rotate(10deg);
+        animation-delay: .5s;
+    }
+
+    .flor:nth-child(4) {
+        left: 105px;
+        height: 95px;
+        transform: rotate(-18deg);
+        animation-delay: 1s;
+    }
+
+    .boton {
+        margin-top: 30px;
+        padding: 15px 30px;
+        border: 1px solid #f6d45a;
+        border-radius: 50px;
+        background: rgba(255, 213, 51, .1);
+        color: #ffe477;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: .3s;
+        font-family: inherit;
+    }
+
+    .boton:hover {
+        background: #f6d45a;
+        color: #17140b;
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 216, 61, .3);
+    }
+
+    .carta {
+        display: none;
+        max-width: 650px;
+        margin-top: 40px;
+        padding: 35px 28px;
+        background: rgba(28, 24, 13, .88);
+        border: 1px solid rgba(255, 216, 61, .35);
+        border-radius: 20px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, .5);
+        animation: subir 1s ease;
+    }
+
+    .carta.visible {
+        display: block;
+    }
+
+    .carta h2 {
+        color: #ffd83d;
+        font-size: 2rem;
+        margin-bottom: 25px;
+    }
+
+    .carta p {
+        font-family: Georgia, serif;
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: #fff7d1;
+        margin-bottom: 18px;
+    }
+
+    .firma {
+        margin-top: 30px;
+        font-style: italic;
+        color: #ffd83d;
+        font-size: 1.2rem;
+    }
+
+    .final {
+        display: none;
+        margin-top: 35px;
+        font-size: 1.2rem;
+        color: #ffeaa0;
+        animation: aparecer 2s ease;
+    }
+
+    .final.visible {
+        display: block;
+    }
+
+    .petalo {
+        position: fixed;
+        top: -20px;
+        width: 12px;
+        height: 18px;
+        background: #ffd83d;
+        border-radius: 70% 30% 70% 30%;
+        pointer-events: none;
+        z-index: 10;
+        animation: caer linear forwards;
+    }
+
+    .estrellas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .estrella {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #fff6bf;
+        border-radius: 50%;
+        opacity: .7;
+        animation: parpadear 3s infinite alternate;
+    }
+
+    @keyframes aparecer {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes subir {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes crecer {
+        from {
+            transform: scaleY(0);
+        }
+        to {
+            transform: scaleY(1);
+        }
+    }
+
+    @keyframes caer {
+        0% {
+            transform: translateY(-20px) rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes parpadear {
+        from {
+            opacity: .2;
+        }
+
+        to {
+            opacity: .9;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .carta {
+            padding: 28px 20px;
+        }
+
+        .carta p {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .flores {
+            transform: scale(.85);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="estrellas" id="estrellas"></div>
+
+<main class="contenedor">
+
+    <section class="intro">
+
+        <div class="pequeno">
+            Una pequeña sorpresa para ti
+        </div>
+
+        <h1>Luci</h1>
+
+        <p class="subtitulo">
+            Hay flores que duran unos días...
+            y hay personas que hacen florecer la vida entera.
+        </p>
+
+        <div class="flores">
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+        </div>
+
+        <button class="boton" onclick="abrirCarta()">
+            Hay algo que quiero decirte
+        </button>
+
+        <div class="carta" id="carta">
+
+            <h2>Para ti, Luci 🌻</h2>
+
+            <p>
+                No quería regalarte solamente unas flores amarillas.
+                Quería regalarte un pequeño lugar al que pudieras volver
+                cuando necesitaras recordar que alguien piensa en ti.
+            </p>
+
+            <p>
+                Tal vez una flor parezca algo sencillo, pero me gusta
+                pensar que tiene algo de nosotros: necesita tiempo,
+                cuidado, paciencia y ganas de seguir creciendo.
+            </p>
+
+            <p>
+                Y aunque la vida a veces nos ponga caminos difíciles,
+                quiero que sepas que lo que siento por ti no se mide
+                solamente por los momentos fáciles.
+            </p>
+
+            <p>
+                Me gusta imaginar que, así como estas flores encontraron
+                la manera de crecer entre la oscuridad, nosotros también
+                podemos seguir encontrando nuestro camino.
+            </p>
+
+            <p>
+                No sé qué traerá cada día que viene.
+                Pero sí sé que hay personas que uno guarda de una manera
+                especial en el corazón.
+            </p>
+
+            <p>
+                Tú eres una de ellas.
+            </p>
+
+            <div class="firma">
+                Con cariño,<br>
+                alguien que te quiere mucho.
+            </div>
+
+        </div>
+
+        <div class="final" id="final">
+            🌻 Que siempre encuentres una razón para volver a florecer. 🌻
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+
+    // Crear estrellas
+    const estrellas = document.getElementById("estrellas");
+
+    for (let i = 0; i < 80; i++) {
+
+        const estrella = document.createElement("div");
+
+        estrella.classList.add("estrella");
+
+        estrella.style.left = Math.random() * 100 + "%";
+        estrella.style.top = Math.random() * 100 + "%";
+        estrella.style.animationDelay = Math.random() * 3 + "s";
+
+        estrellas.appendChild(estrella);
+    }
+
+
+    // Abrir carta
+    function abrirCarta() {
+
+        const carta = document.getElementById("carta");
+        const final = document.getElementById("final");
+        const boton = document.querySelector(".boton");
+
+        carta.classList.add("visible");
+
+        boton.style.display = "none";
+
+        setTimeout(() => {
+            final.classList.add("visible");
+        }, 3500);
+
+        lluviaDePetalos();
+    }
+
+
+    // Lluvia de flores/pétalos
+    function lluviaDePetalos() {
+
+        for (let i = 0; i < 45; i++) {
+
+            setTimeout(() => {
+
+                const petalo = document.createElement("div");
+
+                petalo.classList.add("petalo");
+
+                petalo.style.left = Math.random() * 100 + "vw";
+
+                petalo.style.animationDuration =
+                    (4 + Math.random() * 5) + "s";
+
+                petalo.style.transform =
+                    `rotate(${Math.random() * 360}deg)`;
+
+                document.body.appendChild(petalo);
+
+                setTimeout(() => {
+                    petalo.remove();
+                }, 9000);
+
+            }, i * 100);
+        }
+    }
+
+</script>
+
+</body>
+</html>
