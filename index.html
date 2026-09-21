@@ -4,310 +4,687 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Para Luci 🌻</title>
+<title>Para Lucy 🌻</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #fff8dc;
+    background:
+        radial-gradient(circle at 50% 10%, #51431d 0%, #211c0e 30%, #0d0d0b 70%, #050505 100%);
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+.estrellas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.estrella {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff6bf;
+    border-radius: 50%;
+    opacity: .7;
+    animation: parpadear 3s infinite alternate;
+}
+
+/* =========================
+   LUNA
+========================= */
+
+.luna {
+    position: fixed;
+    top: 7%;
+    right: 8%;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #fff4bd;
+    box-shadow:
+        0 0 25px rgba(255,244,189,.6),
+        0 0 80px rgba(255,220,100,.2);
+    opacity: .9;
+    z-index: 1;
+}
+
+.luna::after {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 18px;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #17150d;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 18px 100px;
+    position: relative;
+    z-index: 2;
+}
+
+.intro {
+    width: 100%;
+    max-width: 900px;
+    animation: aparecer 2s ease;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.pequeno {
+    font-size: .85rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #e9c951;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: clamp(4rem, 15vw, 8rem);
+    color: #ffd83d;
+    text-shadow:
+        0 0 10px rgba(255,216,61,.5),
+        0 0 35px rgba(255,193,7,.3),
+        0 0 70px rgba(255,193,7,.15);
+    margin-bottom: 8px;
+}
+
+.subtitulo {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    color: #fff4bd;
+    max-width: 700px;
+    line-height: 1.7;
+    margin: auto;
+}
+
+/* =========================
+   JARDÍN
+========================= */
+
+.jardin {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    height: 300px;
+    margin: 30px auto 5px;
+}
+
+/* =========================
+   GIRASOLES
+========================= */
+
+.girasol {
+    position: absolute;
+    bottom: 35px;
+    width: 7px;
+    background: linear-gradient(#477b31, #203e1c);
+    border-radius: 10px;
+    transform-origin: bottom;
+    animation: crecer 1.8s ease forwards;
+}
+
+.girasol::before {
+    content: "";
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    width: 95px;
+    height: 95px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #4b2c08 0 17%,
+            #6b3c08 18% 25%,
+            transparent 26%
+        ),
+        conic-gradient(
+            #ffd21f 0deg 12deg,
+            transparent 12deg 22deg,
+            #ffdc32 22deg 34deg,
+            transparent 34deg 44deg,
+            #ffd21f 44deg 56deg,
+            transparent 56deg 66deg,
+            #ffdc32 66deg 78deg,
+            transparent 78deg 88deg,
+            #ffd21f 88deg 100deg,
+            transparent 100deg 110deg,
+            #ffdc32 110deg 122deg,
+            transparent 122deg 132deg,
+            #ffd21f 132deg 144deg,
+            transparent 144deg 154deg,
+            #ffdc32 154deg 166deg,
+            transparent 166deg 176deg,
+            #ffd21f 176deg 188deg,
+            transparent 188deg 198deg,
+            #ffdc32 198deg 210deg,
+            transparent 210deg 220deg,
+            #ffd21f 220deg 232deg,
+            transparent 232deg 242deg,
+            #ffdc32 242deg 254deg,
+            transparent 254deg 264deg,
+            #ffd21f 264deg 276deg,
+            transparent 276deg 286deg,
+            #ffdc32 286deg 298deg,
+            transparent 298deg 308deg,
+            #ffd21f 308deg 320deg,
+            transparent 320deg 330deg,
+            #ffdc32 330deg 342deg,
+            transparent 342deg 360deg
+        );
+
+    filter: drop-shadow(0 0 12px rgba(255,213,51,.5));
+}
+
+/* hojas */
+
+.girasol::after {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 25px;
+    background: #497d2e;
+    border-radius: 100% 0 100% 0;
+    top: 75px;
+    left: 0;
+    transform: rotate(-25deg);
+}
+
+/* posiciones */
+
+.g1 {
+    left: 8%;
+    height: 130px;
+    transform: rotate(-9deg);
+}
+
+.g2 {
+    left: 22%;
+    height: 180px;
+    transform: rotate(-3deg);
+    animation-delay: .2s;
+}
+
+.g3 {
+    left: 39%;
+    height: 210px;
+    transform: rotate(2deg);
+    animation-delay: .4s;
+}
+
+.g4 {
+    left: 57%;
+    height: 170px;
+    transform: rotate(-2deg);
+    animation-delay: .6s;
+}
+
+.g5 {
+    left: 73%;
+    height: 205px;
+    transform: rotate(7deg);
+    animation-delay: .8s;
+}
+
+.g6 {
+    left: 88%;
+    height: 145px;
+    transform: rotate(10deg);
+    animation-delay: 1s;
+}
+
+/* =========================
+   POLLITO
+========================= */
+
+.personaje {
+    position: absolute;
+    z-index: 5;
+    bottom: 30px;
+}
+
+.pollito {
+    left: 27%;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+.cuerpo-pollito {
+    position: relative;
+    width: 105px;
+    height: 95px;
+    background: #ffd83d;
+    border-radius: 55% 55% 48% 48%;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+}
+
+.cuerpo-pollito::before {
+    content: "";
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    background: #ffe76a;
+    border-radius: 50%;
+    top: -42px;
+    left: 18px;
+}
+
+.ojo {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: #17130a;
+    border-radius: 50%;
+    top: -13px;
+    z-index: 3;
+}
+
+.ojo-pollito {
+    left: 67px;
+}
+
+.pico {
+    position: absolute;
+    top: 0;
+    left: 83px;
+    width: 0;
+    height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 20px solid #e88d19;
+    z-index: 4;
+}
+
+.alita {
+    position: absolute;
+    width: 42px;
+    height: 27px;
+    background: #e9bd29;
+    border-radius: 60% 30% 60% 30%;
+    top: 30px;
+}
+
+.alita-pollito {
+    right: -10px;
+    transform: rotate(20deg);
+}
+
+/* =========================
+   RATONCITA
+========================= */
+
+.ratoncita {
+    right: 25%;
+    animation: flotar 3.5s ease-in-out infinite reverse;
+}
+
+.cuerpo-raton {
+    position: relative;
+    width: 95px;
+    height: 75px;
+    background: #bdb8b0;
+    border-radius: 50% 55% 45% 45%;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+}
+
+.oreja {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    background: #bdb8b0;
+    border-radius: 50%;
+    top: -25px;
+}
+
+.oreja::after {
+    content: "";
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    background: #e9a6a9;
+    border-radius: 50%;
+    top: 7px;
+    left: 7px;
+}
+
+.oreja1 {
+    left: 8px;
+}
+
+.oreja2 {
+    right: 8px;
+}
+
+.ojo-raton {
+    top: 17px;
+    left: 63px;
+    width: 8px;
+    height: 8px;
+    background: #16120f;
+}
+
+.nariz {
+    position: absolute;
+    top: 31px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    background: #e88994;
+    border-radius: 50%;
+}
+
+.bigote {
+    position: absolute;
+    right: -45px;
+    top: 33px;
+    width: 50px;
+    height: 1px;
+    background: #ddd;
+    transform: rotate(-8deg);
+}
+
+.bigote::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 1px;
+    background: #ddd;
+    top: 10px;
+    transform: rotate(16deg);
+}
+
+.cola {
+    position: absolute;
+    width: 70px;
+    height: 35px;
+    border: 4px solid #bdb8b0;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 60px 0 0;
+    right: -55px;
+    bottom: -8px;
+    transform: rotate(20deg);
+}
+
+/* =========================
+   BOTON
+========================= */
+
+.boton {
+    margin-top: 15px;
+    padding: 16px 32px;
+    border: 1px solid #f6d45a;
+    border-radius: 50px;
+    background: rgba(255,213,51,.1);
+    color: #ffe477;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: .3s;
+    font-family: inherit;
+    box-shadow: 0 0 20px rgba(255,216,61,.08);
+}
+
+.boton:hover {
+    background: #f6d45a;
+    color: #17140b;
+    transform: scale(1.06);
+    box-shadow: 0 0 35px rgba(255,216,61,.4);
+}
+
+/* =========================
+   CARTA
+========================= */
+
+.carta {
+    display: none;
+    max-width: 760px;
+    margin: 45px auto 0;
+    padding: 45px 35px;
+    text-align: left;
+
+    background:
+        linear-gradient(
+            rgba(36,30,14,.94),
+            rgba(20,18,11,.96)
+        );
+
+    border: 1px solid rgba(255,216,61,.4);
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 50px rgba(0,0,0,.65),
+        0 0 100px rgba(255,193,7,.06);
+
+    animation: subir 1s ease;
+}
+
+.carta.visible {
+    display: block;
+}
+
+.carta h2 {
+    text-align: center;
+    color: #ffd83d;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    margin-bottom: 35px;
+}
+
+.carta p {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: #fff7d1;
+    margin-bottom: 23px;
+}
+
+.frase-especial {
+    text-align: center;
+    color: #ffd83d !important;
+    font-size: 1.3rem !important;
+    font-style: italic;
+    margin: 35px 0 !important;
+}
+
+.promesa {
+    text-align: center;
+    font-size: 1.5rem !important;
+    color: #ffe477 !important;
+    margin: 25px 0 !important;
+}
+
+.firma {
+    margin-top: 40px;
+    text-align: center;
+    font-style: italic;
+    color: #ffd83d;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.final {
+    display: none;
+    margin-top: 40px;
+    font-size: 1.25rem;
+    color: #ffeaa0;
+    animation: aparecer 2s ease;
+    line-height: 1.8;
+}
+
+.final.visible {
+    display: block;
+}
+
+/* =========================
+   PÉTALOS
+========================= */
+
+.petalo {
+    position: fixed;
+    top: -30px;
+    width: 13px;
+    height: 20px;
+    background: #ffd83d;
+    border-radius: 70% 30% 70% 30%;
+    pointer-events: none;
+    z-index: 10;
+    animation: caer linear forwards;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
 
-    body {
-        min-height: 100vh;
-        overflow-x: hidden;
-        font-family: Georgia, "Times New Roman", serif;
-        background:
-            radial-gradient(circle at 50% 20%, #443b20 0%, #18150d 45%, #080807 100%);
-        color: #fff8dc;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subir {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
     }
 
-    .contenedor {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 30px 20px;
-        position: relative;
-        z-index: 2;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    .intro {
-        animation: aparecer 2s ease;
-    }
-
-    .pequeno {
-        font-size: 1rem;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: #e8c85c;
-        margin-bottom: 15px;
-    }
-
-    h1 {
-        font-size: clamp(3rem, 12vw, 7rem);
-        color: #ffd83d;
-        text-shadow:
-            0 0 10px rgba(255, 216, 61, .4),
-            0 0 35px rgba(255, 193, 7, .25);
-        margin-bottom: 10px;
-    }
-
-    .subtitulo {
-        font-size: clamp(1.2rem, 4vw, 1.7rem);
-        color: #fff4bd;
-        max-width: 650px;
-        line-height: 1.6;
-        margin: auto;
-    }
-
-    .flores {
-        position: relative;
-        height: 190px;
-        width: 300px;
-        margin: 30px auto 10px;
-    }
-
-    .flor {
-        position: absolute;
-        bottom: 0;
-        width: 5px;
-        height: 130px;
-        background: linear-gradient(#4d7b32, #29491f);
-        border-radius: 10px;
+@keyframes crecer {
+    from {
+        transform: scaleY(0);
         transform-origin: bottom;
-        animation: crecer 2s ease forwards;
     }
 
-    .flor::before {
-        content: "";
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
+    to {
+        transform: scaleY(1);
+        transform-origin: bottom;
+    }
+}
+
+@keyframes caer {
+    0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes parpadear {
+    from {
+        opacity: .15;
+    }
+
+    to {
+        opacity: .9;
+    }
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 600px) {
+
+    .luna {
         width: 55px;
         height: 55px;
-        border-radius: 50%;
-        background:
-            radial-gradient(circle, #5b3a0b 0 20%, transparent 21%),
-            conic-gradient(
-                #ffd92f 0deg 20deg,
-                transparent 20deg 40deg,
-                #ffd92f 40deg 60deg,
-                transparent 60deg 80deg,
-                #ffd92f 80deg 100deg,
-                transparent 100deg 120deg,
-                #ffd92f 120deg 140deg,
-                transparent 140deg 160deg,
-                #ffd92f 160deg 180deg,
-                transparent 180deg 200deg,
-                #ffd92f 200deg 220deg,
-                transparent 220deg 240deg,
-                #ffd92f 240deg 260deg,
-                transparent 260deg 280deg,
-                #ffd92f 280deg 300deg,
-                transparent 300deg 320deg,
-                #ffd92f 320deg 340deg,
-                transparent 340deg 360deg
-            );
-            filter: drop-shadow(0 0 8px rgba(255, 213, 51, .4));
+        top: 4%;
+        right: 5%;
     }
 
-    .flor:nth-child(1) {
-        left: 55px;
-        height: 110px;
-        transform: rotate(-10deg);
-        animation-delay: .3s;
+    .luna::after {
+        width: 55px;
+        height: 55px;
+        left: 12px;
+        top: -5px;
     }
 
-    .flor:nth-child(2) {
-        left: 145px;
-        height: 150px;
-        transform: rotate(3deg);
-        animation-delay: .7s;
+    .jardin {
+        height: 280px;
+        transform: scale(.75);
+        margin-top: 10px;
+        margin-bottom: -40px;
     }
 
-    .flor:nth-child(3) {
-        left: 220px;
-        height: 120px;
-        transform: rotate(10deg);
-        animation-delay: .5s;
+    .pollito {
+        left: 18%;
     }
 
-    .flor:nth-child(4) {
-        left: 105px;
-        height: 95px;
-        transform: rotate(-18deg);
-        animation-delay: 1s;
-    }
-
-    .boton {
-        margin-top: 30px;
-        padding: 15px 30px;
-        border: 1px solid #f6d45a;
-        border-radius: 50px;
-        background: rgba(255, 213, 51, .1);
-        color: #ffe477;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: .3s;
-        font-family: inherit;
-    }
-
-    .boton:hover {
-        background: #f6d45a;
-        color: #17140b;
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(255, 216, 61, .3);
+    .ratoncita {
+        right: 16%;
     }
 
     .carta {
-        display: none;
-        max-width: 650px;
-        margin-top: 40px;
-        padding: 35px 28px;
-        background: rgba(28, 24, 13, .88);
-        border: 1px solid rgba(255, 216, 61, .35);
-        border-radius: 20px;
-        box-shadow: 0 0 50px rgba(0, 0, 0, .5);
-        animation: subir 1s ease;
-    }
-
-    .carta.visible {
-        display: block;
-    }
-
-    .carta h2 {
-        color: #ffd83d;
-        font-size: 2rem;
-        margin-bottom: 25px;
+        padding: 30px 21px;
     }
 
     .carta p {
-        font-family: Georgia, serif;
-        font-size: 1.1rem;
-        line-height: 1.9;
-        color: #fff7d1;
-        margin-bottom: 18px;
+        font-size: 1rem;
+        line-height: 1.85;
     }
 
-    .firma {
-        margin-top: 30px;
-        font-style: italic;
-        color: #ffd83d;
-        font-size: 1.2rem;
+    .carta h2 {
+        margin-bottom: 25px;
     }
 
-    .final {
-        display: none;
-        margin-top: 35px;
-        font-size: 1.2rem;
-        color: #ffeaa0;
-        animation: aparecer 2s ease;
+    .promesa {
+        font-size: 1.25rem !important;
     }
-
-    .final.visible {
-        display: block;
-    }
-
-    .petalo {
-        position: fixed;
-        top: -20px;
-        width: 12px;
-        height: 18px;
-        background: #ffd83d;
-        border-radius: 70% 30% 70% 30%;
-        pointer-events: none;
-        z-index: 10;
-        animation: caer linear forwards;
-    }
-
-    .estrellas {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    .estrella {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: #fff6bf;
-        border-radius: 50%;
-        opacity: .7;
-        animation: parpadear 3s infinite alternate;
-    }
-
-    @keyframes aparecer {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes subir {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes crecer {
-        from {
-            transform: scaleY(0);
-        }
-        to {
-            transform: scaleY(1);
-        }
-    }
-
-    @keyframes caer {
-        0% {
-            transform: translateY(-20px) rotate(0deg);
-            opacity: 1;
-        }
-
-        100% {
-            transform: translateY(110vh) rotate(720deg);
-            opacity: 0;
-        }
-    }
-
-    @keyframes parpadear {
-        from {
-            opacity: .2;
-        }
-
-        to {
-            opacity: .9;
-        }
-    }
-
-    @media (max-width: 500px) {
-        .carta {
-            padding: 28px 20px;
-        }
-
-        .carta p {
-            font-size: 1rem;
-            line-height: 1.8;
-        }
-
-        .flores {
-            transform: scale(.85);
-        }
-    }
+}
 </style>
 </head>
 
@@ -315,151 +692,362 @@
 
 <div class="estrellas" id="estrellas"></div>
 
+<div class="luna"></div>
+
 <main class="contenedor">
 
-    <section class="intro">
+<section class="intro">
 
-        <div class="pequeno">
-            Una pequeña sorpresa para ti
-        </div>
+    <div class="pequeno">
+        Una pequeña sorpresa para ti
+    </div>
 
-        <h1>Luci</h1>
+    <h1>Lucy</h1>
 
-        <p class="subtitulo">
-            Hay flores que duran unos días...
-            y hay personas que hacen florecer la vida entera.
-        </p>
+    <p class="subtitulo">
+        Hay flores que duran unos días...
+        y hay personas que hacen florecer la vida entera.
+    </p>
 
-        <div class="flores">
-            <div class="flor"></div>
-            <div class="flor"></div>
-            <div class="flor"></div>
-            <div class="flor"></div>
-        </div>
+    <!-- JARDÍN -->
 
-        <button class="boton" onclick="abrirCarta()">
-            Hay algo que quiero decirte
-        </button>
+    <div class="jardin">
 
-        <div class="carta" id="carta">
+        <div class="girasol g1"></div>
+        <div class="girasol g2"></div>
+        <div class="girasol g3"></div>
+        <div class="girasol g4"></div>
+        <div class="girasol g5"></div>
+        <div class="girasol g6"></div>
 
-            <h2>Para ti, Luci 🌻</h2>
+        <!-- POLLITO -->
 
-            <p>
-                No quería regalarte solamente unas flores amarillas.
-                Quería regalarte un pequeño lugar al que pudieras volver
-                cuando necesitaras recordar que alguien piensa en ti.
-            </p>
+        <div class="personaje pollito">
 
-            <p>
-                Tal vez una flor parezca algo sencillo, pero me gusta
-                pensar que tiene algo de nosotros: necesita tiempo,
-                cuidado, paciencia y ganas de seguir creciendo.
-            </p>
+            <div class="cuerpo-pollito">
 
-            <p>
-                Y aunque la vida a veces nos ponga caminos difíciles,
-                quiero que sepas que lo que siento por ti no se mide
-                solamente por los momentos fáciles.
-            </p>
+                <div class="ojo ojo-pollito"></div>
 
-            <p>
-                Me gusta imaginar que, así como estas flores encontraron
-                la manera de crecer entre la oscuridad, nosotros también
-                podemos seguir encontrando nuestro camino.
-            </p>
+                <div class="pico"></div>
 
-            <p>
-                No sé qué traerá cada día que viene.
-                Pero sí sé que hay personas que uno guarda de una manera
-                especial en el corazón.
-            </p>
+                <div class="alita alita-pollito"></div>
 
-            <p>
-                Tú eres una de ellas.
-            </p>
-
-            <div class="firma">
-                Con cariño,<br>
-                alguien que te quiere mucho.
             </div>
 
         </div>
 
-        <div class="final" id="final">
-            🌻 Que siempre encuentres una razón para volver a florecer. 🌻
+        <!-- RATONCITA -->
+
+        <div class="personaje ratoncita">
+
+            <div class="cuerpo-raton">
+
+                <div class="oreja oreja1"></div>
+                <div class="oreja oreja2"></div>
+
+                <div class="ojo ojo-raton"></div>
+
+                <div class="nariz"></div>
+
+                <div class="bigote"></div>
+
+                <div class="cola"></div>
+
+            </div>
+
         </div>
 
-    </section>
+    </div>
+
+    <button class="boton" onclick="abrirCarta()">
+        Hay algo que quiero decirte 🌻
+    </button>
+
+
+    <!-- CARTA -->
+
+    <div class="carta" id="carta">
+
+        <h2>Para ti, Lucy 🌻</h2>
+
+        <p>
+            Dicen que las flores amarillas llegan cuando el amor quiere
+            anunciar que la primavera todavía no ha terminado.
+        </p>
+
+        <p>
+            Para ti.
+        </p>
+
+        <p>
+            Para recordarte que, entre tantos caminos que todavía no conocemos,
+            yo sigo queriendo caminar contigo. Que no necesito que la luna me
+            prometa cuánto durará la noche, ni que las estrellas me cuenten qué
+            está escrito en nuestro destino.
+        </p>
+
+        <p>
+            Me basta con saber que, si alguna vez volvemos a perdernos,
+            siempre buscaré tu mano.
+        </p>
+
+        <p class="frase-especial">
+            Siempre estaré a tu ladito.
+        </p>
+
+        <p>
+            Sé que ahora nos espera una etapa difícil. Quizá vengan días en los
+            que el cielo parezca más lejano y las noches un poco más largas.
+            Pero no quiero que estas flores te hablen de un amor que nunca tuvo miedo.
+        </p>
+
+        <p>
+            Quiero que te hablen de un amor que, aun teniendo miedo,
+            aprendió a mirar hacia adelante.
+        </p>
+
+        <p>
+            Porque tú sigues siendo mi amor más puro.
+        </p>
+
+        <p class="frase-especial">
+            Mi 11:11.
+        </p>
+
+        <p>
+            La niña que llegó a mi vida y consiguió que hasta la luna pareciera
+            guardar nuestros secretos. La que, sin saberlo, se quedó escondida
+            en mis noches, en mis sueños y en cada rincón de mi alma.
+        </p>
+
+        <p>
+            Y si alguna vez dudas de lo que significas para mí, recuerda que
+            hubo un tonto que, entre tantas personas y tantos caminos, te encontró
+            a ti y decidió guardar tu nombre en el lugar más bonito de su corazón.
+        </p>
+
+        <p>
+            Yo hice una promesa clara.
+        </p>
+
+        <p class="promesa">
+            Casarme contigo en Santa Marta.
+        </p>
+
+        <p>
+            Quizá algún día estemos frente al mar, con el viento despeinándonos
+            y el sol cayendo lentamente sobre nosotros, y podamos mirar atrás
+            y entender que incluso las etapas difíciles fueron parte del camino
+            que nos llevó hasta allí.
+        </p>
+
+        <p>
+            No sé qué nos espera.
+        </p>
+
+        <p>
+            Pero sé lo que quiero pedirle a la vida:
+        </p>
+
+        <p class="frase-especial">
+            Un día en el que únicamente me tenga que levantar a besar a mi novia.
+        </p>
+
+        <p>
+            Y también tiempo.
+        </p>
+
+        <p>
+            Tiempo para crecer, para aprender, para sanar, para volver a
+            encontrarnos cuando sea necesario y para seguir construyendo
+            ese futuro que tantas veces imaginamos.
+        </p>
+
+        <p>
+            Porque no quiero volver al pasado.
+        </p>
+
+        <p>
+            Quiero construir contigo un camino que todavía no ha sido caminado.
+        </p>
+
+        <p>
+            Por si acaso te asustas.
+        </p>
+
+        <p>
+            Y cuando llegue ese día, también tendrás que cumplir otra promesa.
+        </p>
+
+        <p class="promesa">
+            Enseñarme a bailar.
+        </p>
+
+        <p>
+            Porque yo podré aprenderme todos los caminos del mundo,
+            pero todavía necesito que tú me enseñes a seguir tus pasos
+            sin pisarte los pies.
+        </p>
+
+        <p>
+            Quiero bailar contigo aunque no sepamos qué canción viene después.
+            Quiero muchas noches contigo, muchas mañanas, tus risas después
+            de cualquier tontería y ese lugar entre tus brazos donde el mundo
+            parece quedarse lejos.
+        </p>
+
+        <p class="frase-especial">
+            No necesito saber el destino si puedo caminar contigo.
+        </p>
+
+        <p>
+            Porque nunca te fuiste.
+        </p>
+
+        <p>
+            Quizá solamente estabas esperando que volviera a mirarte con amor.
+        </p>
+
+        <p>
+            Así que guarda las flores, mis cartas, aunque sean feas,
+            mi chaqueta, mis gafas, a Honey, a Nala, mis súper chistes,
+            nuestros recuerdos y mi corazón.
+        </p>
+
+        <p>
+            Y cuando los mires, recuerda que incluso en los días difíciles
+            hubo alguien que decidió seguir escogiendo tu mano.
+        </p>
+
+        <p class="frase-especial">
+            Que la luna nos encuentre juntos.<br>
+            Que las estrellas pierdan la cuenta.
+        </p>
+
+        <p>
+            Y que algún día, frente al mar, podamos decir que después de tantas
+            noches finalmente aprendimos a bailar la misma canción.
+        </p>
+
+        <div class="firma">
+            Siempre a tu ladito, como YOKO.<br><br>
+
+            Con cariño,<br>
+            tu pollito. 💛<br><br>
+
+            Si te gustó, mi ratoncita.<br>
+            Dios te bendiga, mi amorcito.
+        </div>
+
+    </div>
+
+    <div class="final" id="final">
+        🌻 Que la luna nos encuentre juntos y que las estrellas pierdan la cuenta. 🌻
+    </div>
+
+</section>
 
 </main>
 
+
 <script>
 
-    // Crear estrellas
-    const estrellas = document.getElementById("estrellas");
+/* =========================
+   CREAR ESTRELLAS
+========================= */
 
-    for (let i = 0; i < 80; i++) {
+const estrellas = document.getElementById("estrellas");
 
-        const estrella = document.createElement("div");
+for (let i = 0; i < 110; i++) {
 
-        estrella.classList.add("estrella");
+    const estrella = document.createElement("div");
 
-        estrella.style.left = Math.random() * 100 + "%";
-        estrella.style.top = Math.random() * 100 + "%";
-        estrella.style.animationDelay = Math.random() * 3 + "s";
+    estrella.classList.add("estrella");
 
-        estrellas.appendChild(estrella);
-    }
+    estrella.style.left = Math.random() * 100 + "%";
+    estrella.style.top = Math.random() * 100 + "%";
+
+    estrella.style.animationDelay =
+        Math.random() * 3 + "s";
+
+    estrella.style.transform =
+        `scale(${0.5 + Math.random() * 2})`;
+
+    estrellas.appendChild(estrella);
+}
 
 
-    // Abrir carta
-    function abrirCarta() {
+/* =========================
+   ABRIR CARTA
+========================= */
 
-        const carta = document.getElementById("carta");
-        const final = document.getElementById("final");
-        const boton = document.querySelector(".boton");
+function abrirCarta() {
 
-        carta.classList.add("visible");
+    const carta = document.getElementById("carta");
+    const final = document.getElementById("final");
+    const boton = document.querySelector(".boton");
 
-        boton.style.display = "none";
+    carta.classList.add("visible");
+
+    boton.style.display = "none";
+
+    setTimeout(() => {
+
+        final.classList.add("visible");
+
+    }, 4000);
+
+    lluviaDePetalos();
+
+    setTimeout(() => {
+
+        carta.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }, 400);
+}
+
+
+/* =========================
+   LLUVIA DE PÉTALOS
+========================= */
+
+function lluviaDePetalos() {
+
+    for (let i = 0; i < 70; i++) {
 
         setTimeout(() => {
-            final.classList.add("visible");
-        }, 3500);
 
-        lluviaDePetalos();
-    }
+            const petalo =
+                document.createElement("div");
 
+            petalo.classList.add("petalo");
 
-    // Lluvia de flores/pétalos
-    function lluviaDePetalos() {
+            petalo.style.left =
+                Math.random() * 100 + "vw";
 
-        for (let i = 0; i < 45; i++) {
+            petalo.style.animationDuration =
+                (4 + Math.random() * 6) + "s";
+
+            petalo.style.width =
+                (8 + Math.random() * 8) + "px";
+
+            petalo.style.height =
+                (12 + Math.random() * 10) + "px";
+
+            document.body.appendChild(petalo);
 
             setTimeout(() => {
 
-                const petalo = document.createElement("div");
+                petalo.remove();
 
-                petalo.classList.add("petalo");
+            }, 11000);
 
-                petalo.style.left = Math.random() * 100 + "vw";
-
-                petalo.style.animationDuration =
-                    (4 + Math.random() * 5) + "s";
-
-                petalo.style.transform =
-                    `rotate(${Math.random() * 360}deg)`;
-
-                document.body.appendChild(petalo);
-
-                setTimeout(() => {
-                    petalo.remove();
-                }, 9000);
-
-            }, i * 100);
-        }
+        }, i * 80);
     }
+}
 
 </script>
 
